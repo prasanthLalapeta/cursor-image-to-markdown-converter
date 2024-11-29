@@ -51,6 +51,38 @@ yarn dev
 
 5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the application
 
+## Troubleshooting Build Issues
+
+If you encounter build errors, try these common solutions:
+
+1. Clear Next.js cache:
+```bash
+rm -rf .next
+```
+
+2. Delete node_modules and reinstall dependencies:
+```bash
+rm -rf node_modules
+rm package-lock.json # or yarn.lock if using yarn
+npm install # or yarn install
+```
+
+3. Ensure all dependencies are properly installed:
+```bash
+npm install @radix-ui/react-slot @radix-ui/react-toast class-variance-authority clsx tailwind-merge
+```
+
+4. Check Node.js version:
+```bash
+node --version
+```
+Make sure you're using Node.js 18.x or later.
+
+5. If using TypeScript, ensure types are installed:
+```bash
+npm install --save-dev @types/node @types/react @types/react-dom
+```
+
 ## Features
 
 - Upload images and convert them to markdown format using Llama 3.2 Vision

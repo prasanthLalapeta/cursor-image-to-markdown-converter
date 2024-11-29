@@ -2,7 +2,7 @@
 
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
-import { Copy, Download, FileDown } from "lucide-react";
+import { Copy, FileDown } from "lucide-react";
 import { useState } from "react";
 
 interface MarkdownPreviewProps {

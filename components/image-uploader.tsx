@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { ImageIcon, Upload } from "lucide-react";
@@ -11,6 +11,7 @@ export function ImageUploader() {
     const [isUploading, setIsUploading] = useState(false);
     const [markdown, setMarkdown] = useState<string>("");
     const [previewUrl, setPreviewUrl] = useState<string>("");
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -37,6 +38,10 @@ export function ImageUploader() {
         }
     };
 
+    const handleUploadClick = () => {
+        fileInputRef.current?.click();
+    };
+
     return (
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <div className="flex flex-col gap-4">
@@ -44,16 +49,18 @@ export function ImageUploader() {
                     <label
                         htmlFor="image-upload"
                         className={cn(
-                            "flex h-40 w-full cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed px-5 py-6 text-center transition-colors hover:bg-accent",
+                            "flex h-96 w-full cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed px-5 py-6 text-center transition-colors hover:bg-accent",
                             previewUrl ? "border-0" : "border-muted-foreground/25"
                         )}
                     >
                         {previewUrl ? (
-                            <img
-                                src={previewUrl}
-                                alt="Preview"
-                                className="h-full w-full object-contain rounded-lg"
-                            />
+                            <div className="h-full w-full flex items-center justify-center">
+                                <img
+                                    src={previewUrl}
+                                    alt="Preview"
+                                    className="max-h-full max-w-full object-contain rounded-lg"
+                                />
+                            </div>
                         ) : (
                             <>
                                 <ImageIcon className="h-10 w-10 text-muted-foreground/40" />
@@ -63,6 +70,7 @@ export function ImageUploader() {
                             </>
                         )}
                         <input
+                            ref={fileInputRef}
                             id="image-upload"
                             type="file"
                             accept="image/*"
@@ -75,6 +83,7 @@ export function ImageUploader() {
                         disabled={isUploading}
                         variant="secondary"
                         className="mt-4 w-full"
+                        onClick={handleUploadClick}
                     >
                         <Upload className="mr-2 h-4 w-4" />
                         Upload Image
